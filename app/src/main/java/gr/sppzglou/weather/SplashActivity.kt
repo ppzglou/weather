@@ -27,12 +27,16 @@ import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import gr.sppzglou.weather.base.BaseActivity
+import gr.sppzglou.weather.ui.theme.BlueTrans
 
 @AndroidEntryPoint
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : BaseActivity<DashboardVM>(DashboardVM::class.java) {
     private val anim = mutableStateOf(false)
     private val endSplash = mutableStateOf(false)
+
+    override fun setupObservers() {
+    }
 
     @Composable
     override fun SetupCompose() {
@@ -42,7 +46,7 @@ class SplashActivity : BaseActivity<DashboardVM>(DashboardVM::class.java) {
         Box(
             Modifier
                 .fillMaxSize()
-                .background(Color(0x9003A0F4))
+                .background(BlueTrans)
         )
 
         if (end > 0) SplashScreen(end, anim)
@@ -151,6 +155,4 @@ class SplashActivity : BaseActivity<DashboardVM>(DashboardVM::class.java) {
             }
         }
     }
-
-    override fun setupObservers() {}
 }

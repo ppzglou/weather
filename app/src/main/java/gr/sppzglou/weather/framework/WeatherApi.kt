@@ -1,5 +1,7 @@
 package gr.sppzglou.weather.framework
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -20,15 +22,21 @@ interface WeatherApi {
     ): SearchPlaceResponse
 }
 
+@Entity(tableName = "cities")
+data class City(
+    @PrimaryKey
+    var title: String
+)
+
 data class SearchPlaceResponse(
     var data: Data
 )
 
 data class Data(
-    var request: MutableList<Request>
+    var request: MutableList<Request>?
 )
 
 data class Request(
-    var type: String,
-    var query: String
+    var type: String?,
+    var query: String?
 )

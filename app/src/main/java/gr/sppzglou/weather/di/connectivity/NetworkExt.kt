@@ -1,4 +1,4 @@
-package gr.sppzglou.novibet.di.connectivity
+package gr.sppzglou.weather.di.connectivity
 
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
