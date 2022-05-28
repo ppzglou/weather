@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/drawable-v24/bg_white_20.xml" value="0.10604248046875" />
+        <entry key="app/src/main/res/drawable/foreground.xml" value="0.1" />
+      </map>
+    </option>
+  </component>
+</project>
