@@ -44,11 +44,11 @@ abstract class BaseActivity<VM : BaseViewModel>(clazz: Class<VM>) : ComponentAct
         }
         vm.error.observe(this) { e ->
             val er = when (e) {
-                is HttpException -> (this as HttpException).message()
+                is HttpException -> "HTTP error code: ${e.code()}"
                 is NoInternetException -> "No Internet!"
                 else -> "Error!"
             }
-            Toast.makeText(this, er, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, er, Toast.LENGTH_LONG).show()
         }
         setContent {
             SetupCompose()
