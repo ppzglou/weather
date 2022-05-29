@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.skydoves.landscapist.glide.GlideImage
@@ -68,7 +69,8 @@ class SplashActivity : BaseActivity<DashboardVM>(DashboardVM::class.java) {
             Box(
                 Modifier
                     .fillMaxSize()
-                    .background(BlueTrans))
+                    .background(BlueTrans)
+            )
             Column(
                 Modifier.fillMaxSize(),
                 Arrangement.Center,
@@ -82,71 +84,28 @@ class SplashActivity : BaseActivity<DashboardVM>(DashboardVM::class.java) {
 
                 anim.value = true
                 Row {
-                    Text(
-                        "W",
-                        Modifier
-                            .padding(top = p1)
-                            .alpha(alpha),
-                        color = Color.White,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 50.sp
-                    )
-                    Text(
-                        "E",
-                        Modifier
-                            .padding(top = p2)
-                            .alpha(alpha),
-                        color = Color.White,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 50.sp
-                    )
-                    Text(
-                        "A",
-                        Modifier
-                            .padding(bottom = p1)
-                            .alpha(alpha),
-                        color = Color.White,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 50.sp
-                    )
-                    Text(
-                        "T",
-                        Modifier
-                            .padding(top = p4)
-                            .alpha(alpha),
-                        color = Color.White,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 50.sp
-                    )
-                    Text(
-                        "H",
-                        Modifier
-                            .padding(top = p5)
-                            .alpha(alpha),
-                        color = Color.White,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 50.sp
-                    )
-                    Text(
-                        "E",
-                        Modifier
-                            .padding(bottom = 0.dp)
-                            .alpha(alpha),
-                        color = Color.White,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 50.sp
-                    )
-                    Text(
-                        "R",
-                        Modifier
-                            .padding(top = p1)
-                            .alpha(alpha),
-                        color = Color.White,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 50.sp
-                    )
+                    Letter("W", p1, 0.dp, alpha)
+                    Letter("E", p2, 0.dp, alpha)
+                    Letter("A", 0.dp, p1, alpha)
+                    Letter("T", p4, 0.dp, alpha)
+                    Letter("H", p5, 0.dp, alpha)
+                    Letter("E", 0.dp, 0.dp, alpha)
+                    Letter("R", p1, 0.dp, alpha)
                 }
             }
         }
+    }
+
+    @Composable
+    private fun Letter(txt: String, top: Dp, bottom: Dp, alpha: Float) {
+        Text(
+            txt,
+            Modifier
+                .padding(top = top, bottom = bottom)
+                .alpha(alpha),
+            color = Color.White,
+            fontWeight = FontWeight.Bold,
+            fontSize = 50.sp
+        )
     }
 }

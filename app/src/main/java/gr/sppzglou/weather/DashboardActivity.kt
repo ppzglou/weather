@@ -82,7 +82,8 @@ class DashboardActivity : BaseActivity<DashboardVM>(DashboardVM::class.java) {
         Box(
             Modifier
                 .fillMaxSize()
-                .background(foreground))
+                .background(foreground)
+        )
         when (flow.value) {
             Flow.FirstScreen -> FirstScreen(flow)
             Flow.CitiesList -> CitiesList()
@@ -511,10 +512,8 @@ class DashboardActivity : BaseActivity<DashboardVM>(DashboardVM::class.java) {
     override fun setupObservers() {
         vm.getCities.observe(this) {
             citiesList.value = it
-            if (it.isNotEmpty()) {
-                when (flow.value) {
-                    Flow.FirstScreen -> flow.value = Flow.Pager
-                }
+            if (it.isNotEmpty() && flow.value == Flow.FirstScreen) {
+                flow.value = Flow.Pager
             }
         }
         vm.getWeather.observe(this) {
@@ -534,7 +533,6 @@ class DashboardActivity : BaseActivity<DashboardVM>(DashboardVM::class.java) {
             else -> s
         }
     }
-
 
     private fun getMonthName(month: Int): String {
         return DateFormatSymbols().months[month - 1] ?: ""
