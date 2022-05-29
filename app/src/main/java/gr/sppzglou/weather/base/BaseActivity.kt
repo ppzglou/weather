@@ -2,6 +2,7 @@ package gr.sppzglou.weather.base
 
 import android.os.Bundle
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -20,6 +21,8 @@ import androidx.core.view.WindowCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import gr.sppzglou.weather.R
+import gr.sppzglou.weather.framework.exception.NoInternetException
+import retrofit2.HttpException
 
 
 abstract class BaseActivity<VM : BaseViewModel>(clazz: Class<VM>) : ComponentActivity() {
@@ -38,6 +41,14 @@ abstract class BaseActivity<VM : BaseViewModel>(clazz: Class<VM>) : ComponentAct
             event.getContentIfNotHandled()?.let {
                 showProgress.value = it
             }
+        }
+        vm.error.observe(this) { e ->
+            val er = when (e) {
+                is HttpException -> (this as HttpException).message()
+                is NoInternetException -> "No Internet!"
+                else -> "Error!"
+            }
+            Toast.makeText(this, er, Toast.LENGTH_SHORT).show()
         }
         setContent {
             SetupCompose()

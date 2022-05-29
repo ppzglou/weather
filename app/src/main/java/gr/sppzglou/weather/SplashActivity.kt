@@ -2,9 +2,6 @@ package gr.sppzglou.weather
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.ColorMatrix
-import android.graphics.ColorMatrixColorFilter
-import android.widget.ImageView
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -19,12 +16,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.viewinterop.AndroidView
-import androidx.core.content.ContextCompat
-import com.bumptech.glide.Glide
+import com.skydoves.landscapist.glide.GlideImage
 import dagger.hilt.android.AndroidEntryPoint
 import gr.sppzglou.weather.base.BaseActivity
 import gr.sppzglou.weather.ui.theme.BlueTrans
@@ -59,22 +56,19 @@ class SplashActivity : BaseActivity<DashboardVM>(DashboardVM::class.java) {
 
     @Composable
     private fun SplashScreen(end: Float, anim: MutableState<Boolean>) {
+        val matrix = ColorMatrix()
+        matrix.setToSaturation(0F)
+
         Box(Modifier.alpha(end)) {
-            AndroidView(
-                {
-                    ImageView(it).apply {
-                        scaleType = ImageView.ScaleType.CENTER_CROP
-                        val matrix = ColorMatrix()
-                        matrix.setSaturation(0F)
-                        val filter = ColorMatrixColorFilter(matrix)
-                        colorFilter = filter
-                        foreground =
-                            ContextCompat.getDrawable(this.context, R.drawable.foreground)
-                        Glide.with(it).asGif().load(R.mipmap.splash).into(this)
-                    }
-                },
-                Modifier.fillMaxSize()
+            GlideImage(
+                R.mipmap.splash,
+                Modifier.fillMaxSize(),
+                colorFilter = ColorFilter.colorMatrix(matrix)
             )
+            Box(
+                Modifier
+                    .fillMaxSize()
+                    .background(BlueTrans))
             Column(
                 Modifier.fillMaxSize(),
                 Arrangement.Center,

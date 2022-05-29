@@ -6,6 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import gr.sppzglou.weather.base.BaseViewModel
 import gr.sppzglou.weather.framework.City
 import gr.sppzglou.weather.framework.Repository
+import gr.sppzglou.weather.framework.WeatherResponse
 import javax.inject.Inject
 
 @HiltViewModel
@@ -15,6 +16,9 @@ class DashboardVM @Inject constructor(
 
     private val _searchPlace = MutableLiveData<String>()
     val searchPlace: LiveData<String> = _searchPlace
+
+    private val _getWeather = MutableLiveData<WeatherResponse>()
+    val getWeather: LiveData<WeatherResponse> = _getWeather
 
     private val _getCities = MutableLiveData<MutableList<City>>()
     val getCities: LiveData<MutableList<City>> = _getCities
@@ -26,6 +30,12 @@ class DashboardVM @Inject constructor(
     fun searchPlace(place: String) {
         launch {
             _searchPlace.value = repo.searchPlace(place).data.request?.first()?.query ?: ""
+        }
+    }
+
+    fun getWeather(city: String) {
+        launch {
+            _getWeather.value = repo.getWeather(city)
         }
     }
 

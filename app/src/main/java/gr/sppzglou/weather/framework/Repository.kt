@@ -11,6 +11,8 @@ class Repository @Inject constructor(
 
     suspend fun searchPlace(place: String) = api.searchPlace(place)
 
+    suspend fun getWeather(city: String) = api.getWeather(city)
+
     suspend fun insertCity(city: City) = db.citiesDao().insert(city)
 
     suspend fun deleteCity(title: String) = db.citiesDao().delete(title)

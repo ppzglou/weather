@@ -1,7 +1,5 @@
 package gr.sppzglou.weather.framework
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -16,27 +14,15 @@ interface WeatherApi {
     @GET("weather.ashx")
     suspend fun searchPlace(
         @Query("q") place: String,
-        @Query("num_of_days") days: Int = 0,
         @Query("key") token: String = Api.ApiToken.value,
         @Query("format") format: String = Api.Format.value
     ): SearchPlaceResponse
+
+    @GET("weather.ashx")
+    suspend fun getWeather(
+        @Query("q") city: String,
+        @Query("num_of_days") days: Int = 7,
+        @Query("key") token: String = Api.ApiToken.value,
+        @Query("format") format: String = Api.Format.value
+    ): WeatherResponse
 }
-
-@Entity(tableName = "cities")
-data class City(
-    @PrimaryKey
-    var title: String
-)
-
-data class SearchPlaceResponse(
-    var data: Data
-)
-
-data class Data(
-    var request: MutableList<Request>?
-)
-
-data class Request(
-    var type: String?,
-    var query: String?
-)
