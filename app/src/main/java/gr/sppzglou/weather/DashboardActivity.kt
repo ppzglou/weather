@@ -539,7 +539,7 @@ class DashboardActivity : BaseActivity<DashboardVM>(DashboardVM::class.java) {
     }
 
     private fun getDay(day: Int): String {
-        return DateFormatSymbols().shortWeekdays[day + 1] ?: ""
+        return DateFormatSymbols().shortWeekdays[if (day == 7) 1 else day + 1] ?: ""
     }
 
     private fun getIcon(code: String): Int {
